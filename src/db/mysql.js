@@ -34,6 +34,23 @@ function handleCon() {
 
 handleCon();
 
+function createUser(table, data) {
+    return new Promise((resolve, reject) => {
+        conection.query(`INSERT INTO ${table} SET ?`, data, (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        });
+    });
+}
+
+function searchUser(table, e_mail, password) {
+    return new Promise((resolve, reject) => {
+        conection.query(`SELECT * FROM ${table} WHERE e_mail = '${e_mail}' AND password = '${password}'`, (err, data) => {
+            if (err) return reject(err);
+            resolve(data);
+        });
+    });
+}
 // Función para realizar consultas a la base de datos
 function list(table, userId) {
     return new Promise((resolve, reject) => {
@@ -45,5 +62,7 @@ function list(table, userId) {
 }
 
 module.exports = {
-    list
+    list,
+    createUser,
+    searchUser
 };
