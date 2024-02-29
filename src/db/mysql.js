@@ -1,5 +1,5 @@
 const db = require('mysql');
-const config = require('../../config');
+const config = require('../config');
 
 const dbConfig = {
     host: config.mysql.host,
@@ -43,3 +43,7 @@ function list(table, userId) {
         });
     });
 }
+
+module.exports = {
+    list
+};

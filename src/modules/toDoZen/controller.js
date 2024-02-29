@@ -1,11 +1,12 @@
 const db = require('../../db/mysql');
 
-let table = 'task';
+const table = 'task';
 
-function list(table, userId) {
+
+function listTasks(userId) {
     return db.list(table, userId);
 }
 
 module.exports = {
-    list
+    listTasks
 };
