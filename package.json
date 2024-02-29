@@ -1,0 +1,14 @@
+{
+  "name": "to-do-zen-api",
+  "version": "1.0.0",
+  "description": "to-do-zen backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "Juan Camilo López",
+  "license": "MIT"
+}
