@@ -61,7 +61,29 @@ router.post("/task/create", (req, res) => {
   controller
     .createTask(req.body)
     .then((data) => {
-      response.success(req, res, data, 201);
+      response.success(req, res, "Task created successfully", 201);
+    })
+    .catch((e) => {
+      response.error(req, res, e, 500);
+    });
+});
+
+router.put("/task/update", (req, res) => {
+  controller
+    .updateTask(req.body)
+    .then((data) => {
+      response.success(req, res, "Task updated successfully", 200);
+    })
+    .catch((e) => {
+      response.error(req, res, e, 500);
+    });
+});
+
+router.delete("/task/delete", (req, res) => {
+  controller
+    .deleteTask(req.body)
+    .then((data) => {
+      response.success(req, res, "Task deleted successfully", 200);
     })
     .catch((e) => {
       response.error(req, res, e, 500);

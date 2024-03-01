@@ -17,9 +17,18 @@ function login(e_mail) {
 function createTask(data) {
     return db.createTask(tableTask, data);
 }
-
+function updateTask(data) {
+    return db.updateTask(tableTask, data);
+}
+function deleteTask(data) {
+    return db.deleteTask(tableTask, data);
+}
 module.exports = {
     listTasks,
     createUser,
-    login
+    login,
+    createTask,
+    updateTask,
+    deleteTask,
+    
 };

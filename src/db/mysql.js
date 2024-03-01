@@ -49,7 +49,7 @@ function searchUser(table, e_mail) {
 function list(table, userId) {
   return new Promise((resolve, reject) => {
     conection.query(
-      `SELECT * FROM ${table} WHERE userId = ${userId}`,
+      `SELECT * FROM ${table} WHERE userId = ${userId} and deleted = 0`,
       (err, data) => {
         if (err) return reject(err);
         resolve(data);
@@ -74,7 +74,8 @@ function createUser(table, data) {
 function createTask(table, data) {
   return new Promise((resolve, reject) => {
     conection.query(
-      "INSERT INTO ?? (title,description,initDate,limitDate,completed,deleted,userId) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      `INSERT INTO ?? (title,description,initDate,limitDate,completed,deleted,userId) 
+      VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [
         table,
         data.title,
@@ -93,9 +94,45 @@ function createTask(table, data) {
   });
 }
 
+function updateTask(table, data) {
+  return new Promise((resolve, reject) => {
+    conection.query(
+      `UPDATE ?? SET title = ?, description = ?, initDate = ?, limitDate = ?, 
+      completed = ? WHERE id = ? AND userId = ?`,
+      [
+        table,
+        data.title,
+        data.description,
+        data.initDate,
+        data.limitDate,
+        data.completed,
+        data.id,
+        data.userId,
+      ],
+      (err, result) => {
+        if (err) return reject(err);
+        resolve(result);
+      }
+    );
+  });
+}
+function deleteTask(table, data) {
+  return new Promise((resolve, reject) => {
+    conection.query(
+      `UPDATE ?? SET deleted = 1 WHERE id = ? AND userId = ?`,
+      [table, data.id, data.userId],
+      (err, result) => {
+        if (err) return reject(err);
+        resolve(result);
+      }
+    );
+  });
+}
 module.exports = {
   list,
   createUser,
   searchUser,
   createTask,
+  updateTask,
+  deleteTask,
 };
