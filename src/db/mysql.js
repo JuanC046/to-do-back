@@ -37,7 +37,7 @@ handleCon();
 function searchUser(table, e_mail) {
   return new Promise((resolve, reject) => {
     conection.query(
-      `SELECT * FROM ${table} WHERE e_mail = '${e_mail}'`,
+      `SELECT * FROM ${table} WHERE email = '${e_mail}'`,
       (err, data) => {
         if (err) return reject(err);
         resolve(data);
@@ -61,8 +61,8 @@ function list(table, userId) {
 function createUser(table, data) {
   return new Promise((resolve, reject) => {
     conection.query(
-      "INSERT INTO ?? (name, e_mail, password) VALUES (?, ?, ?)",
-      [table, data.name, data.e_mail, data.password],
+      "INSERT INTO ?? (name, email, password) VALUES (?, ?, ?)",
+      [table, data.name, data.email, data.password],
       (err, result) => {
         if (err) return reject(err);
         resolve(result);
