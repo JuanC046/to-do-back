@@ -47,7 +47,7 @@ router.get("/user/login/:e_mail/:password", async (req, res) => {
 });
 
 // Task
-router.get("/tasks/:userId", async (req, res) => {
+router.get("/task/list/:userId", async (req, res) => {
   await controller
     .listTasks(req.params.userId)
     .then((lista) => {
