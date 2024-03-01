@@ -21,12 +21,13 @@ router.post("/user/create", async (req, res) => {
     });
 });
 
-router.get("/user/login/:e_mail/:password", async (req, res) => {
+router.post("/user/login", async (req, res) => {
+  console.log(req.body);
   await controller
-    .login(req.params.e_mail)
+    .login(req.body.email)
     .then((data) => {
       if (data.length > 0) {
-        if (data[0].password !== req.params.password) {
+        if (data[0].password !== req.body.password) {
           response.error(req, res, "Password incorrect", 404);
           return;
         }
