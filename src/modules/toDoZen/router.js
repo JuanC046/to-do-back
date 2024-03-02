@@ -10,7 +10,7 @@ router.post("/user/create", async (req, res) => {
     .createUser(req.body)
     .then((data) => {
       let answer = {
-        id: data.insertId,
+        id: data.userId,
         name: req.body.name,
         loggedIn: true,
       };
@@ -52,13 +52,14 @@ router.get("/task/list/:userId", async (req, res) => {
   await controller
     .listTasks(req.params.userId)
     .then((lista) => {
-      response.success(req, res, lista, 200);
+      response.success(req, res, {tasks: lista}, 200);
     })
     .catch((e) => {
       response.error(req, res, e, 500);
     });
 });
 router.post("/task/create", (req, res) => {
+  console.log(req.body);
   controller
     .createTask(req.body)
     .then((data) => {
@@ -81,6 +82,7 @@ router.put("/task/update", (req, res) => {
 });
 
 router.delete("/task/delete", (req, res) => {
+  console.log(req.body)
   controller
     .deleteTask(req.body)
     .then((data) => {
