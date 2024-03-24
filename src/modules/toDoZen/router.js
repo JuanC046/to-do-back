@@ -8,13 +8,18 @@ const response = require("../../network/response");
 router.post("/user/create", async (req, res) => {
   await controller
     .createUser(req.body)
-    .then((data) => {
-      let answer = {
-        id: data.userId,
-        name: req.body.name,
-        loggedIn: true,
-      };
+    .then(async (data) => {
+      await controller.login(req.body.email)
+      .then((data) => {
+  
+          let answer = {
+            id: data[0].id,
+            name: data[0].name,
+            loggedIn: true,
+          };
+        
       response.success(req, res, answer, 201);
+        })
     })
     .catch((e) => {
       response.error(req, res, e, 500);
